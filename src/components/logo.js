@@ -4,9 +4,9 @@ import logo from "../assets/coffee icon.png"
 class Logo extends Component {
     render() {
         return (
-            <div className="flex items-center mr-auto gap-4">
+            <div className="flex items-center gap-4">
                 <img className="w-[30px] h-auto" src={logo} alt="icon"/>
-                <p className="text-base md:text-xl font-bold">Coffee Shop</p>
+                <p className="text-base lg:text-lg xl:text-xl font-bold text-txtSecondary">Coffee Shop</p>
             </div>
         );
     }

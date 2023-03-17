@@ -21,7 +21,7 @@ module.exports = {
         poppins: 'Poppins, sans-serif'
       },
       backgroundImage: {
-        'vietPress': "url('../images/vietnam-press.webp')"
+        'bgAuth': "url('/src/assets/foot-on-table.webp')"
       },
     },
   },

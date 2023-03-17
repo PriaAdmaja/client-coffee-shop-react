@@ -2,6 +2,7 @@ import { Component, React } from "react";
 import Footer from "../components/Footer"
 import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
+import MemberBanner from "../components/MemberBanner";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/foot-on-table.webp"
@@ -48,7 +49,7 @@ class SignUp extends Component {
 
                     </section>
                 </main>
-                <Footer />
+                <Footer banner={<MemberBanner />}/>
             </section>
         );
     }

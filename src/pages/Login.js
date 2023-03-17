@@ -2,13 +2,13 @@ import { Component, React } from "react";
 import Footer from "../components/Footer"
 import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
+import MemberBanner from "../components/MemberBanner";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/foot-on-table.webp"
 
 class Login extends Component {
   
-
     render() {
         return (
             <section className="font-rubik">
@@ -45,7 +45,7 @@ class Login extends Component {
 
                     </section>
                 </main>
-                <Footer />
+                <Footer banner={<MemberBanner />}/>
             </section>
         );
     }

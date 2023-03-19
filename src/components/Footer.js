@@ -5,7 +5,7 @@ import ig from "../assets/ig.png";
 
 const Footer = (props) => {
     return (
-        <section className="font-rubik bg-bgSecondary">
+        <section className="font-rubik bg-[#f8f8f8]">
             {props.banner}
             <section className='flex pt-14 px-[30px] md:px-14 xl:px-[150px] pb-[10px] md:pb-10 xl:pb-[90px] 2xl:w-[1440px] 2xl:ml=auto 2xl:mr-auto text-sm md:text-base flex-col-reverse sm:flex-row gap-8'>
                 <div className="flex flex-col gap-[10px] sm:gap-4 md:gap-5 w-full sm:w-[340px] mr-auto">

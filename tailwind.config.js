@@ -21,8 +21,9 @@ module.exports = {
         poppins: 'Poppins, sans-serif'
       },
       backgroundImage: {
-        'bgAuth': "url('/src/assets/foot-on-table.webp')",
-        'bgForgot': "url('/src/assets/four coffee.webp')"
+        'bgAuth': "url('/src/assets/images/foot-on-table.webp')",
+        'bgForgot': "url('/src/assets/images/four coffee.webp')",
+        'bgHistory': "url('/src/assets/images/vietnam-press.webp')",
       },
     },
   },

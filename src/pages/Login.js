@@ -5,7 +5,7 @@ import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
 
 import iconGoogle from "../assets/google.png";
-import background from "../assets/foot-on-table.webp"
+import background from "../assets/images/foot-on-table.webp"
 
 class Login extends Component {
   

@@ -20,14 +20,14 @@ class Header extends Component {
 
     render() {
         return (
-            <section className="m-0 xl:my-0 xl:mx-[150px] px-[5%] xl:p-0 2xl:w-[1440px] 2xl:mx-0">
-                <nav className="flex items-center justify-between text-center select-none py-[50px] px-[10%] border-solid border-b-[#9F9F9F]">
+            <section className="m-0 xl:my-0 xl:mx-[150px] p-[5%] xl:py-12 xl:px-[10%] 2xl:w-[1440px] 2xl:mx-0 border-[0.5px] border-solid border-b-[#9F9F9F]">
+                <nav className="flex items-center justify-between text-center select-none ">
                     <Logo />
-                    <div className="relative inline md:hidden select-none">
+                    <div className="relative inline lg:hidden select-none">
                         <img src={burger} alt="menu" />
                         <input className="absolute left-1/4 top-1/4 scale-[2] opacity-0 cursor-pointer" type="checkbox" onChange={this.checkHandler} />
                     </div>
-                    <ul className="hidden md:flex items-center justify-around list-none p-0 w-[400px] ">
+                    <ul className="hidden lg:flex items-center justify-around list-none p-0 w-[400px] ">
                         <li className="w-1/4">Home</li>
                         <li className="w-1/4">Product</li>
                         <li className="w-1/4">Your Cart</li>

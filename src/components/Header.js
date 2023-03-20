@@ -20,7 +20,7 @@ class Header extends Component {
 
     render() {
         return (
-            <section className="m-0 xl:my-0 xl:mx-[150px] p-[5%] xl:py-12 xl:px-[10%] 2xl:w-[1440px] 2xl:mx-0 border-[0.5px] border-solid border-b-[#9F9F9F]">
+            <section className="m-0 xl:my-0 xl:mx-[150px] p-[5%] xl:py-12 xl:px-[10%] 2xl:mx-0">
                 <nav className="flex items-center justify-between text-center select-none ">
                     <Logo />
                     <div className="relative inline lg:hidden select-none">

@@ -2,12 +2,32 @@ import React from "react"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 
+import people from "../assets/images/people.png"
+import location from "../assets/images/location.png"
+import heart from "../assets/images/heart.png"
+import teamWork from "../assets/images/team-work.webp"
+import hazelnutLatte from "../assets/images/hazelnut latte.png"
+import pinkyPromise from "../assets/images/pinky promise.png"
+import chickenWings from "../assets/images/chicken wings.png"
+import map from "../assets/images/map.png"
+import netflix from "../assets/images/netflix.png"
+import reddit from "../assets/images/reddit.png"
+import amazon from "../assets/images/amazon.png"
+import spotify from "../assets/images/spotify.png"
+import discord from "../assets/images/discord.png"
+import robert from "../assets/images/viezh robert.png"
+import star from "../assets/images/star.png"
+import kim from "../assets/images/kim young jou.png"
+import yessica from "../assets/images/yessica christy.png"
+
+import "../styles/homepage.modul.css"
+
 const Homepage = () => {
     return (
         <React.Fragment>
             <Header />
             <main>
-        <section className="opening">
+        <section className="opening bg-bgHero">
             <section className="start">
                 <h2 className="start-title">Start Your Day with Coffee and Good Meals</h2>
                 <p>We provide high quality beans, good taste, and healthy meals made by love just for you. Start your
@@ -17,7 +37,7 @@ const Homepage = () => {
             <section className="statistic">
                 <section className="stat">
                     <section className="icon-stat">
-                        <img src="./images/people.png" alt="people" width="17px" height="auto"/>
+                        <img className="w-4 h-auto" src={people} alt="people" />
                     </section>
                     <section className="icon-desc">
                         <h4>90+</h4>
@@ -27,7 +47,7 @@ const Homepage = () => {
                 <span className="v1"></span>
                 <section className="stat">
                     <section className="icon-stat">
-                        <img src="./images/location.png" alt="location" width="14px" height="auto"/>
+                        <img className="w-[14px] h-auto" src={location} alt="location"/>
                     </section>
                     <section className="icon-desc">
                         <h4>30+</h4>
@@ -37,7 +57,7 @@ const Homepage = () => {
                 <span className="v1"></span>
                 <section className="stat">
                     <section className="icon-stat">
-                        <img src="./images/heart.png" alt="heart" width="27px" height="auto"/>
+                        <img className="w-7 h-auto" src={heart} alt="heart" />
                     </section>
                     <section className="icon-desc">
                         <h4>800+</h4>
@@ -47,7 +67,7 @@ const Homepage = () => {
             </section>
         </section>
         <section className="value">
-            <img src="./images/team-work.webp" alt="team work" width="573px"/>
+            <img className="w-[573px]" src={teamWork} alt="team work"/>
             <section>
                 <h3 className="main-title">We Provide Good Coffee and Healthy Meals</h3>
                 <p className="main-desc">You can explore the menu that we provide with fun and have their own taste and make
@@ -79,8 +99,7 @@ const Homepage = () => {
             <section>
                 <section className="menu-card">
                     <section className="images-cover">
-                        <img src="./images/hazelnut latte.png" alt="hazelnut latte" className="images-menu" width="250px"
-                            height="auto" style="top: -40px;right: 50px;"/>
+                        <img src={hazelnutLatte} alt="hazelnut latte" className="images-menu w-[250px] h-auto " />
                     </section>
                     <section className="card-desc">
                         <div className="card-detail">
@@ -113,8 +132,7 @@ const Homepage = () => {
                 </section>
                 <section className="menu-card">
                     <section className="images-cover">
-                        <img src="./images/pinky promise.png" alt="menu" className="images-menu" width="217px" height="auto"
-                            style="top: -40px;right: 20px;"/>
+                        <img src={pinkyPromise} alt="menu" className="images-menu w-[217px] h-auto" />
                     </section>
                     <section className="card-desc">
                         <div className="card-detail">
@@ -151,8 +169,7 @@ const Homepage = () => {
                 </section>
                 <section className="menu-card">
                     <section className="images-cover">
-                        <img src="./images/chicken wings.png" alt="menu" className="images-menu" width="150px" height="auto"
-                            style="top:-30px;"/>
+                        <img src={chickenWings} alt="menu" className="images-menu w-[150px] h-auto" />
                     </section>
                     <section className="card-desc">
                         <div className="card-detail">
@@ -196,16 +213,16 @@ const Homepage = () => {
         <section className="map">
             <h2 className="main-title">Visit Our Store in the Spot on the Map Below</h2>
             <p className="main-desc">See our store in every city on the spot and spen your good day there. See you soon!</p>
-            <img src="./images/map.png" alt="map"/>
+            <img src={map} alt="map"/>
         </section>
         <section className="partner">
             <h2 className="main-title">Our Partner</h2>
             <div>
-                <img src="./images/netflix.png" alt="netflix"/>
-                <img src="./images/reddit.png" alt="reddit"/>
-                <img src="./images/amazon.png" alt="amazon"/>
-                <img src="./images/discord.png" alt="discord"/>
-                <img src="./images/spotify.png" alt="spotify"/>
+                <img src={netflix} alt="netflix"/>
+                <img src={reddit} alt="reddit"/>
+                <img src={amazon} alt="amazon"/>
+                <img src={discord} alt="discord"/>
+                <img src={spotify} alt="spotify"/>
             </div>
         </section>
         <section className="review">
@@ -219,7 +236,7 @@ const Homepage = () => {
                         <div className="user">
                             <div className="user-detail">
                                 <div className="user-pict">
-                                    <img src="./images/viezh robert.png" alt="user-pict" width="100%" height="100%"/>
+                                    <img className="w-full h-full" src={robert} alt="user-pict" width="100%" height="100%"/>
                                 </div>
                                 <div className="user-data">
                                     <p className="user-name">Viezh Robert</p>
@@ -228,7 +245,7 @@ const Homepage = () => {
                             </div>
                             <div className="rate">
                                 <p>4.5</p>
-                                <img src="./images/star.png" alt="star" width="13px" height="auto"/>
+                                <img className="w-3 h-auto" src={star} alt="star" />
                             </div>
                         </div>
                         <p className="testi">“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the
@@ -238,7 +255,7 @@ const Homepage = () => {
                         <div className="user">
                             <div className="user-detail">
                                 <div className="user-pict">
-                                    <img src="./images/yessica christy.png" alt="user-pict" width="100%" height="100%"/>
+                                    <img src={yessica} alt="user-pict" width="100%" height="100%"/>
                                 </div>
                                 <div className="user-data">
                                     <p className="user-name">Yessica Christy</p>
@@ -247,7 +264,7 @@ const Homepage = () => {
                             </div>
                             <div className="rate">
                                 <p>4.5</p>
-                                <img src="./images/star.png" alt="star" width="13px" height="auto"/>
+                                <img className="w-3 h-auto" src={star} alt="star" />
                             </div>
                         </div>
                         <p className="testi">“I like it because I like to travel far and still can make my day better just
@@ -258,7 +275,7 @@ const Homepage = () => {
                         <div className="user">
                             <div className="user-detail">
                                 <div className="user-pict">
-                                    <img src="./images/kim young jou.png" alt="user-pict" width="100%" height="100%"/>
+                                    <img src={kim} alt="user-pict" width="100%" height="100%"/>
                                 </div>
                                 <div className="user-data">
                                     <p className="user-name">Kim Young Jou</p>
@@ -267,7 +284,7 @@ const Homepage = () => {
                             </div>
                             <div className="rate">
                                 <p>4.5</p>
-                                <img src="./images/star.png" alt="star" width="13px" height="auto"/>
+                                <img className="w-3 h-auto" src={star} alt="star" />
                             </div>
                         </div>
                         <p className="testi">“This is very unusual for my taste, I haven’t liked coffee before but their
@@ -278,7 +295,7 @@ const Homepage = () => {
                         <div className="user">
                             <div className="user-detail">
                                 <div className="user-pict">
-                                    <img src="./images/viezh robert.png" alt="user-pict" width="100%" height="100%"/>
+                                    <img src={robert} alt="user-pict" width="100%" height="100%"/>
                                 </div>
                                 <div className="user-data">
                                     <p className="user-name">Viezh Robert</p>
@@ -287,7 +304,7 @@ const Homepage = () => {
                             </div>
                             <div className="rate">
                                 <p>4.5</p>
-                                <img src="./images/star.png" alt="star" width="13px" height="auto"/>
+                                <img className="w-3 h-auto" src={star} alt="star" />
                             </div>
                         </div>
                         <p className="testi">“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the

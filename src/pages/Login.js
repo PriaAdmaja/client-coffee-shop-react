@@ -8,7 +8,21 @@ import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp"
 
 class Login extends Component {
-  
+    state = {
+        formLogin: {
+            email: '',
+            password: ''
+        }
+    }
+
+    handleFormLogin = (event) => {
+        let newFormLogin = { ...this.state.formLogin };
+        newFormLogin[event.target.name] = event.target.value;
+        this.setState({
+            formLogin: newFormLogin
+        }, () => console.log(this.state.formLogin))
+    }
+
     render() {
         return (
             <section className="font-rubik">
@@ -25,11 +39,11 @@ class Login extends Component {
                                 <div class="flex flex-col gap-4 lg:gap-8">
                                     <div className="text-left ">
                                         <p className="text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary">Email Address :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " type="text" placeholder="Enter your email address" id="input-email" />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormLogin} name="email" type="text" placeholder="Enter your email address" id="input-email" />
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary">Password :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " type="password" placeholder="Enter your password" id="input-password" />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormLogin} type="password" name="password" placeholder="Enter your password" id="input-password" />
                                     </div>
                                     <p className="text-left text-secondary text-sm md:text-base lg:text-xl font-bold cursor-pointer" id="forgot">Forgot Password?</p>
                                 </div>
@@ -45,7 +59,7 @@ class Login extends Component {
 
                     </section>
                 </main>
-                <Footer banner={<MemberBanner />}/>
+                <Footer banner={<MemberBanner />} />
             </section>
         );
     }

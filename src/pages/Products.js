@@ -1,10 +1,12 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 
 const Products = () => {
     const [products, setProducts] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = `${process.env.REACT_APP_BACKENDAPI}/products`;
@@ -14,6 +16,11 @@ const Products = () => {
             }
         }).then((result) => setProducts(result.data)).catch((err) => console.log(err))
     }, [])
+
+    const viewProduct = (id) => {
+        navigate(`/products/${id}`)
+       
+    }
 
     return (
         <React.Fragment>
@@ -60,9 +67,9 @@ const Products = () => {
                         </ul>
                     </nav>
                     <div className="grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 py-[5%] px-[5%] grid ">
-                        {products.data?.map((data, i) => {
+                        {products.data?.map((data) => {
                             return (
-                                <div className="mx-auto my-10 w-40 h-[212px] rounded-[30px] bg-white text-center shadow-2xl" key={i}>
+                                <div className="mx-auto cursor-pointer my-10 w-40 h-[212px] rounded-[30px] bg-white text-center shadow-2xl" key={data.id} onClick={() => viewProduct(data.id)}>
                                     <div className="relative -top-10 shadow-xl w-[120px] h-[120px] rounded-full overflow-hidden mx-auto ">
                                         <img className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src={data.pict_url} alt="menu" />
                                     </div>

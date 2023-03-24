@@ -4,9 +4,11 @@ import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
 import { register } from "../utils/apiconnection/auth"
+import { redirect } from "react-router-dom";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp"
+
 
 class SignUp extends Component {
 
@@ -22,14 +24,6 @@ class SignUp extends Component {
         this.controller = new AbortController();
     }
 
-    // state = {
-    //     formRegister: {
-    //         email: '',
-    //         password: '',
-    //         phoneNUmber: ''
-    //     }
-    // }
-
     handleFormRegister = (event) => {
         let newFormRegister = { ...this.state.formRegister };
         newFormRegister[event.target.name] = event.target.value;
@@ -40,10 +34,14 @@ class SignUp extends Component {
 
     registerNewUser = async () => {
         try {
-            if(this.state.formRegister === null) return;
-            const {email, password, phoneNumber} = this.state.formRegister
+            if (this.state.formRegister === null) return;
+            const { email, password, phoneNumber } = this.state.formRegister
             const result = await register(email, password, phoneNumber, this.controller)
-            console.log(result.data.data);
+            if(result) {
+                return setTimeout(() => {
+                    redirect('/login')
+                }, 3000)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -65,17 +63,17 @@ class SignUp extends Component {
                                 <div class="flex flex-col gap-4 lg:gap-6 xl:gap-8">
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Email Address :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="email" placeholder="Enter your email address"  />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="email" placeholder="Enter your email address" />
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Password :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="password" name="password" placeholder="Enter your password"  />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="password" name="password" placeholder="Enter your password" />
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Phone Number :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="password" name="phoneNumber" placeholder="Enter your password"  />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="password" name="phoneNumber" placeholder="Enter your password" />
                                     </div>
-                                 </div>
+                                </div>
                                 <div className="flex flex-col gap-4 lg:gap-[26px] mt-3 lg:mt-11">
                                     <button onClick={this.registerNewUser} className="w-full h-11 lg:h-14 xl:h-[75px] border-none rounded-[20px] flex justify-center items-center gap-[14px] bg-primary text-secondary text-sm lg:text-xl font-bold" >Sign Up</button>
                                     <button className="w-full h-11 lg:h-14 xl:h-[75px] border-none rounded-[20px] flex justify-center items-center gap-[14px] bg-white text-black text-sm md:text-base lg:text-xl font-bold font-poppins shadow-xl" >
@@ -88,7 +86,7 @@ class SignUp extends Component {
 
                     </section>
                 </main>
-                <Footer banner={<MemberBanner />}/>
+                <Footer banner={<MemberBanner />} />
             </section>
         );
     }

@@ -20,7 +20,7 @@ import star from "../assets/images/star.png"
 import kim from "../assets/images/kim young jou.png"
 import yessica from "../assets/images/yessica christy.png"
 
-import "../styles/homepage.modul.css"
+// import "../styles/homepage.modul.css"
 
 const Homepage = () => {
     return (

@@ -7,6 +7,7 @@ import Products from './pages/Products'
 import SignUp from './pages/SignUp'
 import Profile from './pages/Profile'
 import Homepage from './pages/Homepage'
+import Checkout from './pages/Checkout'
 
 const router = createBrowserRouter([
 {path:'/login', element: <Login />},
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
 {path: '/products', element: <Products />},
 {path: '/products/:id', element: <ProductDetail />},
 {path: '/profile', element: <Profile />},
+{path: '/checkout', element: <Checkout />},
 {path: '/', element: <Homepage />},
 
 ])

@@ -25,7 +25,8 @@ module.exports = {
         'bgForgot': "url('/src/assets/images/four coffee.webp')",
         'bgHistory': "url('/src/assets/images/vietnam-press.webp')",
         'bgProfile': "url('/src/assets/images/biji kopi.webp')",
-        'bgHero': "url('/src/assets/images/3 cup of coffee.webp')"
+        'bgHero': "url('/src/assets/images/3 cup of coffee.webp')",
+        'bgCheckout': "url('/src/assets/images/pour coffee.webp')"
       },
     },
   },

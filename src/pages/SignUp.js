@@ -38,9 +38,7 @@ class SignUp extends Component {
             const { email, password, phoneNumber } = this.state.formRegister
             const result = await register(email, password, phoneNumber, this.controller)
             if(result) {
-                return setTimeout(() => {
-                    redirect('/login')
-                }, 3000)
+                console.log(result);
             }
         } catch (error) {
             console.log(error);

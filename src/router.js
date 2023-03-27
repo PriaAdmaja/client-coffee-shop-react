@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp'
 import Profile from './pages/Profile'
 import Homepage from './pages/Homepage'
 import Checkout from './pages/Checkout'
+import History from './pages/History'
 
 const router = createBrowserRouter([
 {path:'/login', element: <Login />},
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
 {path: '/products/:id', element: <ProductDetail />},
 {path: '/profile', element: <Profile />},
 {path: '/checkout', element: <Checkout />},
+{path: '/history', element: <History />},
 {path: '/', element: <Homepage />},
 
 ])

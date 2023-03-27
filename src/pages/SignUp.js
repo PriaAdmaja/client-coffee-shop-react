@@ -4,7 +4,6 @@ import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
 import { register } from "../utils/apiconnection/auth"
-import { redirect } from "react-router-dom";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp"

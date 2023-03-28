@@ -8,7 +8,7 @@ const Profile = () => {
         <React.Fragment>
             <Header />
             <main className="py-[5%] px-0 xl:py-14 bg-bgProfile bg-center bg-cover font-rubik text-txtPrimary">
-                <h1 className="py-0 px-[5%] xl:px-[10%] text-white">User Profile</h1>
+                <h1 className="py-0 px-[5%] xl:px-[10%] text-white text-3xl font-extrabold pb-5">User Profile</h1>
                 <section className="gap-5 xl:gap-[70px] items-stretch text-left flex flex-col justify-between xl:items-center m-5%">
                     <section className="justify-center xl:justify-between flex flex-wrap gap-5 items-center">
                         <div className="w-full xl:w-[310px] text-center h-[358px] bg-white flex flex-col justify-between py-12 px-3 rounded-[10px] relative overflow-hidden">

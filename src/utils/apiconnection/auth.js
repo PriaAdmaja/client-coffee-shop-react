@@ -11,3 +11,19 @@ export const register = (email, password, phoneNumber, controller) => {
         signal: controller.signal,
     });
 };
+
+export const logout = async () => {
+    try {
+        const url = `${process.env.REACT_APP_BACKENDAPI}/auth/logout`;
+        await axios.post(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("cs-token")}`
+            }
+        })
+        localStorage.removeItem('cs-token');
+        localStorage.removeItem('profpict');
+    } catch (error) {
+        console.log(error);
+    }
+
+}

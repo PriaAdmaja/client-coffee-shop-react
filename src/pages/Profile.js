@@ -1,4 +1,7 @@
 import React from "react"
+
+import { logout } from "../utils/apiconnection/auth"
+
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 import pen from "../assets/images/pen.png"
@@ -109,7 +112,7 @@ const Profile = () => {
                                     <p>Edit password</p>
                                     <p>&gt;</p>
                                 </button>
-                                <button className="w-[90%] md:w-full py-4 pr-9 pl-6 flex justify-between text-secondary bg-white h-[60px] rounded-[20px] font-poppins text-base font-bold border-none" id="logout">
+                                <button className="w-[90%] md:w-full py-4 pr-9 pl-6 flex justify-between text-secondary bg-white h-[60px] rounded-[20px] font-poppins text-base font-bold border-none" onClick={logout}>
                                     <p>Log out</p>
                                     <p>&gt;</p>
                                 </button>

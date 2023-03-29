@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Logo from "./Logo"
+import Logo from "./LogoCS"
 import burger from "../assets/burger.png"
 import UnloggedNav from "./UnloggedNav";
 import LoggedNav from "./LoggedNav"
@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import logoSearch from "../assets/search.png";
 import chatIcon from "../assets/chat.png";
 import defaultAvatar from "../assets/default-avatar.jpg"
-
-import { logout } from "../utils/apiconnection/auth";
 
 const Header = () => {
     const [mNavDisplay, setMNavDisplay] = useState('hidden');
@@ -18,20 +16,21 @@ const Header = () => {
     useEffect(() => {
         const token = localStorage.getItem("cs-token");
         const pict = localStorage.getItem("profpict");
+        
         token && setLogin(true)
         pict && setAvatar(pict)
     },[])
 
     const NavControl = () => {
-        return login === false ? <UnloggedNav /> : <LoggedNav />
+        return login === false ? <UnloggedNav /> : <LoggedNav avatar={avatar} />
     }
 
     function MobileNav() {
-        if (!avatar) {
+        if (login === false) {
             return (
                 <ul className="flex flex-col gap-8 list-none">
-                    <li><Link to={'/login'}>Login</Link></li>
                     <li className="bg-primary rounded-[20px] flex items-center justify-center py-3 px-[10px]"><Link to={'/signup'}>Sign Up</Link></li>
+                    <li><Link to={'/login'}>Login</Link></li>
                 </ul>
             );
         }
@@ -74,15 +73,16 @@ const Header = () => {
                 </ul>
                 <NavControl />
             </nav>
-            <section className={`${mNavDisplay} absolute right-0 -bottom-1 w-4/5 h-[80vh] bg-[#ffffff] rounded-bl-2xl px-[10%] pt-[30px] pb-10 text-right text-base font-semibold flex-col justify-between gap-14 z-10 shadow-2xl md:hidden`} >
+            <section className={`${mNavDisplay} fixed right-0 -bottom-1 w-4/5 h-full bg-[#ffffff] rounded-bl-2xl px-[10%] pt-14 pb-10 text-right text-base font-semibold flex-col justify-start gap-14 z-10 shadow-2xl md:hidden`}>
+                <p className="text-2xl text-txtPrimary absolute top-3 left-3 " onClick={checkHandler}>&#10006;</p>
                 <MobileNav />
                 <ul className="flex flex-col gap-7 list-none text-xl">
-                    <li><Link to={'/'}>Home</Link></li>
-                    <li><Link to={'/products'}>Product</Link></li>
-                    <li>Your Cart</li>
-                    <li>History</li>
+                    <li className="after:w-full after:h-3 "><Link to={'/'}>Home</Link></li>
+                    <li ><Link to={'/products'}>Product</Link></li>
+                    <li >Your Cart</li>
+                    <li >History</li>
                 </ul>
-                <button className="flex items-center justify-center w-full h-11 rounded-full bg-primary " type="button" onClick={() => logout}>Logout</button>
+                
             </section>
         </section>
     );

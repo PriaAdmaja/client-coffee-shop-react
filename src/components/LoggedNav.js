@@ -16,7 +16,7 @@ class LoggedNav extends Component {
                     <img className="w-[30px] h-auto" src={chatIcon} alt="chat" />
                 </div>
                 <div className="cursor-pointer w-8 h-8 rounded-full overflow-hidden relative">
-                    <Link to="/profile"><img className="w-10 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src={this.props.profilePict} alt="user" /></Link>
+                    <Link to="/profile"><img className="w-10 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src={this.props.avatar} alt="user" /></Link>
                 </div>
             </div>
         );

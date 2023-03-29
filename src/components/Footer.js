@@ -1,4 +1,4 @@
-import Logo from "./Logo";
+import Logo from "./LogoCS";
 import twitter from "../assets/twitter.png";
 import fb from "../assets/fb.png";
 import ig from "../assets/ig.png";

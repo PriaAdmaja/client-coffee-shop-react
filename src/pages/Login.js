@@ -33,11 +33,15 @@ class Login extends Component {
             const controller = new AbortController();
             const url = `${process.env.REACT_APP_BACKENDAPI}/auth/login`;
             const result = await axios.post(url, body, {
-                signal: controller.signal
+                signal: controller.signal,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
             });
-            const { token, profilePict } = result.data;
+            const { token, profilePict, id } = result.data;
             localStorage.setItem("cs-token", token);
             localStorage.setItem("profpict", profilePict);
+            localStorage.setItem("userId", id);
             this.setState({
                 login: true
             })

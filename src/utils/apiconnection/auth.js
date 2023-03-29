@@ -15,15 +15,17 @@ export const register = (email, password, phoneNumber, controller) => {
 export const logout = async () => {
     try {
         const url = `${process.env.REACT_APP_BACKENDAPI}/auth/logout`;
-        await axios.post(url, {
+        const userId = localStorage.getItem("userId")
+        await axios.post(url, {userId}, {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem("cs-token")}`
+                'Authorization': `Bearer ${localStorage.getItem("cs-token")}`
             }
         })
         localStorage.removeItem('cs-token');
         localStorage.removeItem('profpict');
+        window.location.reload();
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 
 }

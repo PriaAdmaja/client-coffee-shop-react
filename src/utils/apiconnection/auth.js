@@ -27,5 +27,19 @@ export const logout = async () => {
     } catch (error) {
         console.log(error.message);
     }
-
 }
+
+// export const login = async() => {
+//     const controller = new AbortController()
+//     try {
+//         const result = await axios.post(url, body, {
+//             signal: controller.signal,
+//             headers: {
+//                 'Access-Control-Allow-Origin': '*',
+//             }
+//         });
+//     } catch (error) {
+        
+//     }
+    
+// }

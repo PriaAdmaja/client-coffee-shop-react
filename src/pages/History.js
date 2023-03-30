@@ -16,7 +16,7 @@ const History = () => {
                 <section class="grid grid-cols-3">
                     <div class="bg-bgPrimary rounded-[20px] flex align-middle justify-center gap-4 py-4 px-7 relative w-[394px] my-5 mx-auto">
                         <div class="w-[75px] h-[75px] rounded-full overflow-hidden">
-                            <img src="../images/veggie tomato.webp" alt="menu" width="126px" height="auto" style="position: relative; bottom: 50px; right: 20px;" />
+                            <img src="../images/veggie tomato.webp" alt="menu"   />
                         </div>
                         <div class="text-center">
                             <h2 class="text-black text-2xl font-bold font-poppins">Veggie tomato mix</h2>

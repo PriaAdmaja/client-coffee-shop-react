@@ -4,10 +4,12 @@ import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp"
 import { Navigate } from "react-router-dom";
+import { userInfoAction } from "../redux/slices/userInfo";
 
 
 class Login extends Component {
@@ -16,7 +18,7 @@ class Login extends Component {
             email: '',
             password: ''
         },
-        login : false
+        login : false,
     }
 
     handleFormLogin = (event) => {
@@ -27,7 +29,8 @@ class Login extends Component {
         })
     }
 
-    login = async () => {
+    login = async() => {
+       
         try {
             const body = this.state.formLogin;
             const controller = new AbortController();
@@ -39,19 +42,21 @@ class Login extends Component {
                 }
             });
             const { token, profilePict, id } = result.data;
-            localStorage.setItem("cs-token", token);
-            localStorage.setItem("profpict", profilePict);
-            localStorage.setItem("userId", id);
+            this.props.submitToken(token)
+            this.props.submitAvatar(profilePict)
+            this.props.submitId(id)
             this.setState({
                 login: true
             })
         } catch (error) {
             console.log(error);
+        } finally {
+            
         }
     }
 
     render() {
-        let token = localStorage.getItem("cs-token")
+        let token = this.props.userData.token
         return (
             <section className="font-rubik">
                 {token && (<Navigate to="/" replace={true}/>)}
@@ -94,4 +99,18 @@ class Login extends Component {
     }
 }
 
-export default Login
+const mapStateToProps = (state) => {
+    return {
+        userData: state.userInfo
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        submitToken: (data) => dispatch(userInfoAction.submitToken(data)),
+        submitAvatar: (data) => dispatch(userInfoAction.submitAvatar(data)),
+        submitId: (data) => dispatch(userInfoAction.submitUserId(data))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -4,13 +4,19 @@ import Header from "../components/Header"
 import coldBrew from "../assets/images/cold brew.png"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
+import { useSelector, useDispatch} from 'react-redux'
+import { counterAction } from "../redux/slices/counter"
 
 const ProductDetail = () => {
     const location = useLocation();
+    const id = location.pathname.split('/').reverse()[0]
     const [productData, setProductData] = useState([])
+    
+    const count = useSelector(state => state.counter.number)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        const url = `${process.env.REACT_APP_BACKENDAPI}${location.pathname}`;
+        const url = `${process.env.REACT_APP_BACKENDAPI}/products/${id}`;
         axios.get(url, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -19,11 +25,19 @@ const ProductDetail = () => {
 
     }, [])
 
+    const addCount = () => {
+        dispatch(counterAction.increment())
+    }
+
+    const subCount = () => {
+        if(count === 0) return
+        dispatch(counterAction.decrement())
+    }
+
     return (
         <React.Fragment>
             <Header />
             {productData.data?.map((data, i) => {
-                console.log(data);
                 return (
                     <main className="p-[5%] font-rubik text-txtPrimary bg-[#efeeee]" key={i}>
                         <p>Favorite & Promo <b className="font-extrabold">{">"} {data.name}</b></p>
@@ -98,9 +112,9 @@ const ProductDetail = () => {
                                     </div>
                                 </div>
                                 <div className="sm:ml-auto flex items-center justify-center gap-7 md:flex-1">
-                                    <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]">-</button>
-                                    <p className="font-poppins font-extrabold text-2xl text-black">2</p>
-                                    <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]">+</button>
+                                    <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={subCount}>-</button>
+                                    <p className="font-poppins font-extrabold text-2xl text-black">{count}</p>
+                                    <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={addCount}>+</button>
                                 </div>
                             </div>
                             <button className="w-4/5 lg:w-[230px] xl:w-[253px] h-[70px] sm:h-[168px] flex items-center justify-center bg-primary border-none rounded-[20px] text-black font-poppins font-bold text-2xl ">CHECKOUT</button>

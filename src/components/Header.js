@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 import logoSearch from "../assets/search.png";
 import chatIcon from "../assets/chat.png";
 import defaultAvatar from "../assets/default-avatar.jpg"
+import { useSelector } from "react-redux";
 
 const Header = () => {
     const [mNavDisplay, setMNavDisplay] = useState('hidden');
     const [avatar, setAvatar] = useState(defaultAvatar);
     const [login, setLogin] = useState(false);
+    const pict = useSelector(state => state.userInfo.avatar);
+    const token = useSelector(state => state.userInfo.token);
 
     useEffect(() => {
-        const token = localStorage.getItem("cs-token");
-        const pict = localStorage.getItem("profpict");
-        
         token && setLogin(true)
         pict && setAvatar(pict)
     },[])
@@ -58,7 +58,7 @@ const Header = () => {
     }
 
     return (
-        <section className="m-0 p-[5%] xl:py-12 xl:px-[10%]">
+        <section className="m-0 p-[5%] xl:py-12 xl:px-[10%] border-b-[0.5px] border-solid border-[#9f9f9f]">
             <nav className="flex items-center justify-between text-center select-none ">
                 <Logo />
                 <div className="relative inline md:hidden select-none">
@@ -66,10 +66,10 @@ const Header = () => {
                     <input className="absolute left-1/4 top-1/4 scale-[2] opacity-0 cursor-pointer" type="checkbox" onChange={checkHandler} />
                 </div>
                 <ul className="hidden md:flex items-center justify-around list-none p-0 w-[400px] ">
-                    <li className="w-1/4 "><Link to={'/'}>Home</Link></li>
-                    <li className="w-1/4 "><Link to={'/products'}>Product</Link></li>
-                    <li className="w-1/4 ">Your Cart</li>
-                    <li className="w-1/4 "></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/'}>Home</Link></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/products'}>Product</Link></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold">Your Cart</li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold">History</li>
                 </ul>
                 <NavControl />
             </nav>

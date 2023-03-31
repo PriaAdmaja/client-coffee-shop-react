@@ -1,15 +1,17 @@
 import { Component, React } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+
 import Footer from "../components/Footer"
 import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
-import axios from "axios";
-import { connect } from "react-redux";
+import { userInfoAction } from "../redux/slices/userInfo";
 
 import iconGoogle from "../assets/google.png";
-import background from "../assets/images/foot-on-table.webp"
-import { Navigate } from "react-router-dom";
-import { userInfoAction } from "../redux/slices/userInfo";
+import background from "../assets/images/foot-on-table.webp";
+import defaultAvatar from "../assets/default-avatar.jpg"
 
 
 class Login extends Component {
@@ -42,9 +44,9 @@ class Login extends Component {
                 }
             });
             const { token, profilePict, id } = result.data;
-            this.props.submitToken(token)
-            this.props.submitAvatar(profilePict)
-            this.props.submitId(id)
+            !profilePict ? this.props.submitAvatar(defaultAvatar) : this.props.submitAvatar(profilePict);
+            this.props.submitToken(token);
+            this.props.submitId(id);
             this.setState({
                 login: true
             })

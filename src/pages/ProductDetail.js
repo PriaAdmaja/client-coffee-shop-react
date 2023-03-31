@@ -23,7 +23,7 @@ const ProductDetail = () => {
             }
         }).then(result => setProductData(result.data)).catch((err) => console.log(err));
 
-    }, [])
+    }, [id])
 
     const addCount = () => {
         dispatch(counterAction.increment())

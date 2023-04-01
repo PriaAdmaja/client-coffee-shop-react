@@ -19,7 +19,7 @@ const Header = () => {
     useEffect(() => {
         token && setLogin(true)
         pict && setAvatar(pict)
-    },[])
+    },[token])
 
     const NavControl = () => {
         return login === false ? <UnloggedNav /> : <LoggedNav avatar={avatar} />
@@ -68,7 +68,7 @@ const Header = () => {
                 <ul className="hidden md:flex items-center justify-around list-none p-0 w-[400px] ">
                     <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/'}>Home</Link></li>
                     <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/products'}>Product</Link></li>
-                    <li className="w-1/4 hover:text-secondary hover:font-bold">Your Cart</li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/transaction'}>Your Cart</Link></li>
                     <li className="w-1/4 hover:text-secondary hover:font-bold">History</li>
                 </ul>
                 <NavControl />
@@ -79,7 +79,7 @@ const Header = () => {
                 <ul className="flex flex-col gap-7 list-none text-xl">
                     <li className="after:w-full after:h-3 "><Link to={'/'}>Home</Link></li>
                     <li ><Link to={'/products'}>Product</Link></li>
-                    <li >Your Cart</li>
+                    <li ><Link to={'/transaction'}>Your Cart</Link></li>
                     <li >History</li>
                 </ul>
                 

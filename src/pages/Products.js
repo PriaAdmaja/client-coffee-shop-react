@@ -29,13 +29,27 @@ const Products = () => {
     }
 
     const categoryController = (data) => {
+        if(data === '') {
+            setCategory('');
+            navigate('')
+            return;
+        }
         setCategory(`?category=${data}`);
-        navigate(`?category=${data}`)
+        navigate(`?category=${data}`);
     }
 
     const sortController = (sort) => {
-        category === '' ? navigate(`?sortBy=${sort}`) : navigate(`${category}&sortBy=${sort}`)
-        sort === '' ? navigate(`${category}`) : navigate(`${category}&sortBy=${sort}`)
+        if(sort === '') {
+            navigate(`${category}`)
+            setShowSort(false)
+            return;
+        }
+        if(category === '') {
+            navigate(`?sortBy=${sort}`)
+            setShowSort(false)
+            return;
+        }
+        navigate(`${category}&sortBy=${sort}`)
         setShowSort(false)
     }
 
@@ -73,10 +87,10 @@ const Products = () => {
                         </div>
                     </div>
                 </section>
-                <section className="w-full md:w-[calc(100%_-_400px)] xl:w-[calc(100%_-_440px)]">
+                <section className="w-full md:w-[calc(100%_-_400px)] xl:w-[calc(100%_-_440px)] relative">
                     <nav className="overflow-scroll px-[5%] py-[3%]">
                         <ul className="w-[450px] sm:w-full list-none flex items-center justify-center p-0 font-normal">
-                            <li className={`${location.search === '' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => navigate("")}>Favorite Product</li>
+                            <li className={`${location.search === '' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('')}>Favorite Product</li>
                             <li className={`${location.search === '?category=coffee' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('coffee')}>Coffee</li>
                             <li className={`${location.search === '?category=non_coffee' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('non_coffee')}>Non Coffee</li>
                             <li className={`${location.search === '?category=foods' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('foods')}>Foods</li>
@@ -117,7 +131,7 @@ const Products = () => {
                             )
                         })}
                     </div>
-                    <div className="flex justify-center items-center gap-3">
+                    <div className="flex justify-center items-center gap-3 absolute bottom-3 left-1/2 -translate-x-1/2">
                         <button type="button" className={`${data.meta?.prev === null? 'invisible' : 'visible'} w-10 h-10 flex justify-center items-center text-secondary bg-primary font-semibold rounded-[10px] text-xl`} onClick={() => data.meta.prev && navigate(data.meta?.prev)}>&#60;</button>
                         <button className={`${data.meta?.next === null? 'invisible' : 'visible'} w-10 h-10 flex justify-center items-center text-secondary bg-primary font-semibold rounded-[10px] text-xl`} type="button" onClick={() => data.meta.next && navigate(data.meta?.next)}>&#62;</button>
                     </div>

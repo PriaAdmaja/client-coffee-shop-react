@@ -11,10 +11,10 @@ const ProductDetail = () => {
     const navigate = useNavigate();
     const id = location.pathname.split('/').reverse()[0]
     const [productData, setProductData] = useState([])
-    const [size, setSize] = useState('');
+    const [size, setSize] = useState(1);
     const [delivery, setDelivery] = useState('');
     // const [notes, setNotes] = useState('');
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(1);
 
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cartList);
@@ -26,8 +26,9 @@ const ProductDetail = () => {
                 'Access-Control-Allow-Origin': '*',
             }
         }).then(result => setProductData(result.data)).catch((err) => console.log(err));
-
     }, [id])
+
+    
     const addQty = () => {
         setQuantity(prev => prev + 1)
     }
@@ -39,13 +40,17 @@ const ProductDetail = () => {
         setQuantity(prev => prev - 1)
     }
 
-    const addCart = () => {
+    const addCart = (pict, priceRaw, name) => {
+        let sizeValue = size === 1? 1 : (size === 2? 1.25 : 1.5);
         const cart = {
             productId: id,
-            size,
+            size: Number(size),
             quantity,
             // notes,
-            delivery
+            delivery,
+            pict,
+            price: Math.floor(priceRaw * sizeValue),
+            name
         }
         dispatch(cartAction.submitCart(cart))
     }
@@ -54,7 +59,6 @@ const ProductDetail = () => {
         <React.Fragment>
             <Header />
             {productData.data?.map((data, i) => {
-                
                 return (
                     <main className="p-[5%] font-rubik text-txtPrimary bg-[#efeeee]" key={i}>
                         <p>Favorite & Promo <b className="font-extrabold">{">"} {data.name}</b></p>
@@ -68,19 +72,19 @@ const ProductDetail = () => {
                                 <div className="w-full py-[3%] px-[5%] bg-white rounded-[10px]">
                                     <p className="text-base md:text-xl xl:text-2xl text-justify pb-5 md:pb-11 text-secondary font-poppins font-normal">Delivery only on <b>Monday to friday</b> at <b>1 - 7 pm</b></p>
                                     <p className="text-base md:text-xl xl:text-2xl text-justify pb-5 md:pb-11 text-secondary font-poppins font-normal">{data.description}</p>
-                                    <div >
+                                    <div className={`${data.category === 'Foods' ? 'invisible' : 'visible'}`}>
                                         <p className="text-xl md:text-2xl pb-1 md:pb-6 font-poppins font-bold text-center text-black ">Choose a size</p>
-                                        <div className="flex items-center justify-center gap-14 ">
+                                        <div className={`flex items-center justify-center gap-14 `}>
                                             <label >
-                                                <input className="opacity-0 peer" type="radio" name="size" value="R" checked onChange={(e) => setSize(e.target.value)} />
+                                                <input className="opacity-0 peer" type="radio" name="size" value={1} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white">R</p>
                                             </label>
-                                            <label>
-                                                <input className="opacity-0 peer" type="radio" name="size" value="L" onChange={(e) => setSize(e.target.value)} />
+                                            <label >
+                                                <input className={`opacity-0 peer`} type="radio" name="size" value={2} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white">L</p>
                                             </label>
                                             <label >
-                                                <input className="opacity-0 peer" type="radio" name="size" value="XL" onChange={(e) => setSize(e.target.value)} />
+                                                <input className="opacity-0 peer" type="radio" name="size" value={3} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white ">XL</p>
                                             </label>
                                         </div>
@@ -89,7 +93,7 @@ const ProductDetail = () => {
                             </div>
                             <div className="w-full flex gap-5 justify-around flex-col-reverse lg:flex-row items-center">
                                 <div className="w-full flex flex-col justify-center items-center gap-6">
-                                    <button className="w-4/5 lg:w-[388px] h-[70px] lg:h-[85px] text-xl flex items-center justify-center rounded-[20px] font-bold font-poppins border-none text-white bg-secondary" onClick={addCart}>Add to Cart</button>
+                                    <button className="w-4/5 lg:w-[388px] h-[70px] lg:h-[85px] text-xl flex items-center justify-center rounded-[20px] font-bold font-poppins border-none text-white bg-secondary" onClick={() => addCart(data.pict_url, data.price, data.name)}>Add to Cart</button>
                                     <button className="w-4/5 lg:w-[388px] h-[70px] lg:h-[85px] text-xl flex items-center justify-center rounded-[20px] font-bold font-poppins border-none text-secondary bg-primary">Ask to Staff</button>
                                 </div>
                                 <div className="gap-5 w-full flex flex-col justify-center items-center">
@@ -130,7 +134,7 @@ const ProductDetail = () => {
                                         <p className="text-xl font-poppins font-extrabold text-black">{data.name}</p>
                                         {cart.filter((data) => data.productId === id).map((data, i) => {
                                             return (
-                                                <p className="text-base font-poppins font-normal text-black" key={i}>{data.quantity}x {data.size === 'R'?  'Regular' : (data.size === 'L' ? 'Large' : 'Extra large')}</p>
+                                                <p className="text-base font-poppins font-normal text-black" key={i}>{data.quantity}x {data.size === 1?  'Regular' : (data.size === 2 ? 'Large' : 'Extra large')}</p>
 
                                             )
                                         })}

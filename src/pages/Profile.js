@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom"
 
 const Profile = () => {
     const [profile, setProfile] = useState({});
-    const [contacsInput, setContacsInput] = useState(true)
-    const [detailsInput, setDetailsInput] = useState(true)
+    const [contacsInput, setContacsInput] = useState(true);
+    const [detailsInput, setDetailsInput] = useState(true);
+    const [msg, setMsg] = useState('')
     const dispatch = useDispatch();
     const {userId, token} = useSelector((state) => state.userInfo);
     const navigate = useNavigate();
@@ -58,11 +59,13 @@ const Profile = () => {
                     'Access-Control-Allow-Origin': '*',
                 }
             })
-            console.log(result);
+            result.data?.map(data => console.log(data))
         } catch (error) {
             console.log(error);
         }
     }
+
+    console.log(msg);
 
     const logout = async () => {
         try {

@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useSelector, useDispatch } from 'react-redux'
 import { cartAction } from "../redux/slices/cart"
+import { deliveryStatusAction } from "../redux/slices/deliveryStatus"
+import Loader from "../components/Loader"
 
 const ProductDetail = () => {
     const location = useLocation();
@@ -12,23 +14,28 @@ const ProductDetail = () => {
     const id = location.pathname.split('/').reverse()[0]
     const [productData, setProductData] = useState([])
     const [size, setSize] = useState(1);
-    const [delivery, setDelivery] = useState('');
-    // const [notes, setNotes] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const [isLoading, setIsLoading] = useState(false)
 
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cartList);
-
+    const promoProduct = useSelector((state) => state.activePromo);
+    const deliveryStatus = useSelector((state) => state.deliveryStatus);
     useEffect(() => {
-        const url = `${process.env.REACT_APP_BACKENDAPI}/products/${id}`;
-        axios.get(url, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(result => setProductData(result.data)).catch((err) => console.log(err));
+        let getData = true;
+        if (getData) {
+            setIsLoading(true)
+            const url = `${process.env.REACT_APP_BACKENDAPI}/products/${id}`;
+            axios.get(url, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }).then(result => setProductData(result.data)).catch((err) => console.log(err)).finally(() => setIsLoading(false));
+        }
+        return () => {getData = false}
     }, [id])
 
-    
+
     const addQty = () => {
         setQuantity(prev => prev + 1)
     }
@@ -40,20 +47,29 @@ const ProductDetail = () => {
         setQuantity(prev => prev - 1)
     }
 
+    const submitDelivId = (event) => {
+        dispatch(deliveryStatusAction.submitDeliveryId(event.target.value))
+    }
+
+    const submitDelivNotes = (event) => {
+        dispatch(deliveryStatusAction.submitDeliveryNotes(event.target.value))
+    }
+
     const addCart = (pict, priceRaw, name) => {
-        let sizeValue = size === 1? 1 : (size === 2? 1.25 : 1.5);
+        let sizeValue = Number(size) === 1 ? 1 : (Number(size) === 2 ? 1.25 : 1.5);
         const cart = {
-            productId: id,
-            size: Number(size),
+            productId: Number(id),
+            sizeId: Number(size),
             quantity,
-            // notes,
-            delivery,
             pict,
-            price: Math.floor(priceRaw * sizeValue),
+            price: promoProduct.promo.name === name ? Math.floor((priceRaw - (priceRaw * promoProduct.promo.discount)) * sizeValue) : Math.floor(priceRaw * sizeValue),
             name
         }
         dispatch(cartAction.submitCart(cart))
+
     }
+
+    if(isLoading) return(<Loader/>)
 
     return (
         <React.Fragment>
@@ -76,15 +92,15 @@ const ProductDetail = () => {
                                         <p className="text-xl md:text-2xl pb-1 md:pb-6 font-poppins font-bold text-center text-black ">Choose a size</p>
                                         <div className={`flex items-center justify-center gap-14 `}>
                                             <label >
-                                                <input className="opacity-0 peer" type="radio" name="size" value={1} onChange={(e) => setSize(e.target.value)} />
+                                                <input className="opacity-0 peer" type="radio" name="sizeId" value={1} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white">R</p>
                                             </label>
                                             <label >
-                                                <input className={`opacity-0 peer`} type="radio" name="size" value={2} onChange={(e) => setSize(e.target.value)} />
+                                                <input className={`opacity-0 peer`} type="radio" name="sizeId" value={2} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white">L</p>
                                             </label>
                                             <label >
-                                                <input className="opacity-0 peer" type="radio" name="size" value={3} onChange={(e) => setSize(e.target.value)} />
+                                                <input className="opacity-0 peer" type="radio" name="sizeId" value={3} onChange={(e) => setSize(e.target.value)} />
                                                 <p className="w-12 md:w-[70px] h-12 md:h-[70px] text-2xl md:text-4xl rounded-full bg-primary text-secondary font-poppins font-bold flex items-center justify-center select-none peer-checked:bg-secondary peer-checked:text-white ">XL</p>
                                             </label>
                                         </div>
@@ -100,27 +116,27 @@ const ProductDetail = () => {
                                     <p className="text-center font-poppins font-bold text-xl md:text-2xl text-black">Choose Delivery Methods</p>
                                     <div className="w-full sm:w-[408px] justify-around sm:justify-between flex items-center gap-5">
                                         <label >
-                                            <input className="opacity-0 peer" type="radio" name="delivery" value="Dine in" onChange={(e) => setDelivery(e.target.value)} />
+                                            <input className="opacity-0 peer" type="radio" name="deliveryId" value={1} checked={Number(deliveryStatus.deliveryId) === 1 ? true : false} onChange={(e) => submitDelivId(e)} />
                                             <p className="py-3 px-4 text-sm sm:text-base font-normal sm:font-bold bg-[#f4f4f8] text-[#bababa] border-[1px] border-solid border-[#bababa] rounded-[10px] peer-checked:bg-secondary peer-checked:text-white">Dine in</p>
                                         </label>
                                         <label >
-                                            <input className="opacity-0 peer" type="radio" name="delivery" value="Door delivery" onChange={(e) => setDelivery(e.target.value)} />
+                                            <input className="opacity-0 peer" type="radio" name="deliveryId" value={2} checked={Number(deliveryStatus.deliveryId) === 2 ? true : false} onChange={(e) => submitDelivId(e)} />
                                             <p className="py-3 px-4 text-sm sm:text-base font-normal sm:font-bold bg-[#f4f4f8] text-[#bababa] border-[1px] border-solid border-[#bababa] rounded-[10px] peer-checked:bg-secondary peer-checked:text-white">Door Delivery</p>
                                         </label>
                                         <label >
-                                            <input className="opacity-0 peer" type="radio" name="delivery" value="Pick up" onChange={(e) => setDelivery(e.target.value)} />
+                                            <input className="opacity-0 peer" type="radio" name="deliveryId" value={3} checked={Number(deliveryStatus.deliveryId) === 3 ? true : false} onChange={(e) => submitDelivId(e)} />
                                             <p className="py-3 px-4 text-sm sm:text-base font-normal sm:font-bold bg-[#f4f4f8] text-[#bababa] border-[1px] border-solid border-[#bababa] rounded-[10px] peer-checked:bg-secondary peer-checked:text-white">Pick Up</p>
                                         </label>
                                     </div>
-                                    {/* <div className="flex items-center justify-center gap-7">
+                                    <div className="flex items-center justify-center gap-7">
                                         <p className="font-poppins font-normal text-lg">Set time :</p>
-                                        <input className="w-auto sm:w-[290px] font-poppins text-sm text-black border-[1px] border-solid border-b-[#9f9f9f] outline-none bg-[#efeeee] py-[5px] px-0" type="text" placeholder="Enter the time you’ll arrived" onChange={(e) => setNotes(e.target.value)}/>
-                                    </div> */}
-                                    <div className=" flex items-center justify-center gap-7 md:flex-1">
+                                        <input className="w-auto sm:w-[290px] font-poppins text-sm text-black border-[1px] border-solid border-b-[#9f9f9f] outline-none bg-[#efeeee] py-[5px] px-0" type="text" placeholder="Enter the time you’ll arrived" name="notes" value={deliveryStatus.notes === null ? '' : deliveryStatus.notes} onChange={(e) => submitDelivNotes(e)} />
+                                    </div>
+                                    {/* <div className=" flex items-center justify-center gap-7 md:flex-1">
                                         <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={subQty}>-</button>
                                         <p className="font-poppins font-extrabold text-2xl text-black">{quantity}</p>
                                         <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={addQty}>+</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </section>
@@ -134,18 +150,18 @@ const ProductDetail = () => {
                                         <p className="text-xl font-poppins font-extrabold text-black">{data.name}</p>
                                         {cart.filter((data) => data.productId === id).map((data, i) => {
                                             return (
-                                                <p className="text-base font-poppins font-normal text-black" key={i}>{data.quantity}x {data.size === 1?  'Regular' : (data.size === 2 ? 'Large' : 'Extra large')}</p>
+                                                <p className="text-base font-poppins font-normal text-black" key={i}>{data.quantity}x {data.size === 1 ? 'Regular' : (data.size === 2 ? 'Large' : 'Extra large')}</p>
 
                                             )
                                         })}
 
                                     </div>
                                 </div>
-                                {/* <div className="sm:ml-auto flex items-center justify-center gap-7 md:flex-1">
+                                <div className="sm:ml-auto flex items-center justify-center gap-7 md:flex-1">
                                     <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={subQty}>-</button>
                                     <p className="font-poppins font-extrabold text-2xl text-black">{quantity}</p>
                                     <button className="w-10 h-10 rounded-full bg-[#e7aa3685] border-none font-extrabold text-4xl text-[#6A4029]" onClick={addQty}>+</button>
-                                </div> */}
+                                </div>
                             </div>
                             <button className="w-4/5 lg:w-[230px] xl:w-[253px] h-[70px] sm:h-[168px] flex items-center justify-center bg-primary border-none rounded-[20px] text-black font-poppins font-bold text-2xl " onClick={() => navigate("/transaction")}>Checkout</button>
                         </section>

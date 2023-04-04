@@ -1,4 +1,6 @@
 import { Component, React } from "react";
+import { Navigate } from "react-router-dom";
+
 import Footer from "../components/Footer"
 import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
@@ -18,7 +20,8 @@ class SignUp extends Component {
                 email: '',
                 password: '',
                 phoneNumber: ''
-            }
+            },
+            msg: '',
         };
         this.controller = new AbortController();
     }
@@ -36,9 +39,7 @@ class SignUp extends Component {
             if (this.state.formRegister === null) return;
             const { email, password, phoneNumber } = this.state.formRegister
             const result = await register(email, password, phoneNumber, this.controller)
-            if(result) {
-                console.log(result);
-            }
+            this.setState.msg = result.data.msg;
         } catch (error) {
             console.log(error);
         }

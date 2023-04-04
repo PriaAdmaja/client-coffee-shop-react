@@ -18,6 +18,12 @@ const cartSlice = createSlice({
                 ...prevState,
                 cartList: prevState.cartList.filter((d, i, arr) => arr[i] !== arr[id])
             }
+        },
+        clearCart: (prevState) => {
+            return {
+                ...prevState,
+                cartList: []
+            }
         }
     }
 })

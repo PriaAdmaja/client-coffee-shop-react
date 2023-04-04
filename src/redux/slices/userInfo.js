@@ -26,6 +26,14 @@ const userInfoSlice = createSlice({
         userId: action.payload,
       };
     },
+    clearData: (prevState) => {
+      return {
+        ...prevState,
+        userId: null,
+        token: null,
+        avatar: null
+      }
+    }
   }
 })
 

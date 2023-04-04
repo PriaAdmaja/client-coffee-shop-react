@@ -1,34 +1,58 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
+import axios from "axios"
+import { useSelector } from "react-redux"
 
 const History = () => {
+    const [data, setData] = useState([]);
+    const { userId } = useSelector(state => state.userInfo)
+
+    useEffect(() => {
+        const url = `${process.env.REACT_APP_BACKENDAPI}/history/${userId}`;
+        axios.get(url, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res => setData(res.data.data))
+            .catch(err => console.log(err))
+    }, [userId]);
+
     return (
         <React.Fragment>
             <Header />
-            <main class="bg-center bg-bgHistory bg-cover min-h-screen py-28 px-[5%]">
-                <h1 class="text-center pb-6 text-bgPrimary text-5xl font-bold">Let’s see what you have bought!</h1>
-                <p class="text-center pb-4 text-bgPrimary">Select item to delete</p>
-                <div class="text-right delete-btn">
-                    <button class="bg-none border-none cursor-pointer font-bold underline font-poppins text-bgPrimary" type="button" id="select">Select All</button>
-                    <button class="bg-none border-none cursor-pointer font-bold underline font-poppins text-bgPrimary" type="button" id="delete">Delete</button>
+            <main className="bg-center bg-bgHistory bg-cover bg-fixed min-h-screen p-[5%] font-rubik md:py-[10%] md:px-[5%]">
+                <h1 className="text-center pb-3 text-bgPrimary text-3xl md:text-5xl font-bold">Let’s see what you have bought!</h1>
+                <p className="text-center pb-4 text-bgPrimary">Select item to delete</p>
+                <div className="text-right flex justify-end items-center gap-3">
+                    <button className="bg-none border-none cursor-pointer font-medium md:font-bold underline font-poppins text-bgPrimary" type="button" >Select All</button>
+                    <button className="bg-none border-none cursor-pointer font-medium md:font-bold underline font-poppins text-bgPrimary" type="button" >Delete</button>
                 </div>
-                <section class="grid grid-cols-3">
-                    <div class="bg-bgPrimary rounded-[20px] flex align-middle justify-center gap-4 py-4 px-7 relative w-[394px] my-5 mx-auto">
-                        <div class="w-[75px] h-[75px] rounded-full overflow-hidden">
-                            <img src="../images/veggie tomato.webp" alt="menu"   />
-                        </div>
-                        <div class="text-center">
-                            <h2 class="text-black text-2xl font-bold font-poppins">Veggie tomato mix</h2>
-                            <p class="font-normal text-xl font-poppins text-[#895537]">IDR 34.000</p>
-                            <p class="font-normal text-xl font-poppins text-[#895537]">Delivered 1</p>
-                        </div>
-                        <div class="absolute right-7 bottom-6">
-                            <input class="cursor-pointer absolute left-1/4 top-1/4 opacity-0 scale-[190%]" type="checkbox" />
-                            <div class="cursor-pointer bg-[#F5F5F8] border-solid border-2 border-secondary w-6 h-6 rounded "></div>
-                        </div>
-                    </div>
-                </section>
+                <div className="flex flex-wrap justify-center lg:justify-between items-center gap-3 md:gap-5 pt-4">
+                    {data?.map((data, i) => {
+                        console.log(data);
+                        return (
+                            <section key={i}>
+                                <div className="bg-bgPrimary rounded-[20px] flex align-middle justify-center gap-4 py-4 px-7 relative w-[394px] ">
+                                    <div className="w-[75px] h-[75px] rounded-full overflow-hidden">
+                                        <img src="" alt="menu" />
+                                    </div>
+                                    <div className="text-center">
+                                        <h2 className="text-black  text-lg md:text-2xl font-bold font-poppins">Veggie tomato mix</h2>
+                                        <p className="font-normal text-xl font-poppins text-[#895537]">IDR {data.grand_total}</p>
+                                        <p className="font-normal text-xl font-poppins text-[#895537]">{data.status}</p>
+                                    </div>
+                                    <div className="absolute right-7 bottom-6">
+                                        <input className="cursor-pointer absolute left-1/4 top-1/4 opacity-0 scale-[190%]" type="checkbox" />
+                                        <div className="cursor-pointer bg-[#F5F5F8] border-solid border-2 border-secondary w-6 h-6 rounded "></div>
+                                    </div>
+                                </div>
+                            </section>
+                        )
+                    })}
+                </div>
+
+
             </main>
             <Footer />
         </React.Fragment>

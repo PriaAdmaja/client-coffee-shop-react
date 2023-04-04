@@ -7,6 +7,7 @@ import Footer from "../components/Footer"
 import AuthNav from "../components/AuthNav";
 import Alert from "../components/Alert";
 import MemberBanner from "../components/MemberBanner";
+import Loader from "../components/Loader";
 import { userInfoAction } from "../redux/slices/userInfo";
 
 import iconGoogle from "../assets/google.png";
@@ -21,6 +22,7 @@ class Login extends Component {
             password: ''
         },
         login : false,
+        isLoading: false
     }
 
     handleFormLogin = (event) => {
@@ -32,8 +34,8 @@ class Login extends Component {
     }
 
     login = async() => {
-       
         try {
+            this.setState.isLoading = true;
             const body = this.state.formLogin;
             const controller = new AbortController();
             const url = `${process.env.REACT_APP_BACKENDAPI}/auth/login`;
@@ -53,12 +55,14 @@ class Login extends Component {
         } catch (error) {
             console.log(error);
         } finally {
-            
+            this.setState.isLoading = false
         }
     }
 
     render() {
-        let token = this.props.userData.token
+        
+        let token = this.props.userData.token;
+        
         return (
             <section className="font-rubik">
                 {token && (<Navigate to="/" replace={true}/>)}

@@ -33,9 +33,7 @@ const Checkout = () => {
 
             const url = `${process.env.REACT_APP_BACKENDAPI}/users/${userId}`;
             axios.get(url, {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                }
+                
             }).then(res => res.data.data.forEach(d => {
                 const biodata = {
                     address: d.address,

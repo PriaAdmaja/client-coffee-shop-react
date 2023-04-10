@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { userInfoAction } from "../../redux/slices/userInfo";
 
 const CheckToken = ({ children }) => {
-    const [data, setData] = useState()
+    const [data, setData] = useState();
     const navigate = useNavigate();
     const { token } = useSelector((state) => state.userInfo);
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!token) {
             return navigate('/login', {
@@ -19,9 +21,13 @@ const CheckToken = ({ children }) => {
                 'Authorization': `Bearer ${token}`,
                 'Access-Control-Allow-Origin': '*',
             }
-        }).then(res => setData(res)).catch(err => console.log(err)) 
+        }).then(res => setData(res))
+        .catch(err => {
+            console.log(err.message);
+            dispatch(userInfoAction.clearData());
+            navigate('/login');
+        }) 
     }, [token])
-    console.log(data);
     if(data) {
         return (<>{children}</>)
     }

@@ -7,14 +7,18 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { userInfoAction } from "../redux/slices/userInfo"
 import { useNavigate } from "react-router-dom"
+import defaultAvatar from "../assets/default-avatar.jpg";
 
 const Profile = () => {
     const [profile, setProfile] = useState({});
+    const [image, setImage] = useState('');
+    const [newProfile, setNewProfile] = useState({});
     const [contacsInput, setContacsInput] = useState(true);
     const [detailsInput, setDetailsInput] = useState(true);
+    const [inputFile, setInputFile] = useState(false)
     const [msg, setMsg] = useState('')
     const dispatch = useDispatch();
-    const {userId, token} = useSelector((state) => state.userInfo);
+    const { userId, token } = useSelector((state) => state.userInfo);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,52 +35,66 @@ const Profile = () => {
                 lastName: d.last_name,
                 address: d.address,
                 phoneNumber: d.phone_number,
-                birthdate: d.birthdate,
+                birthDate: d.birth_date,
                 gender: d.gender,
-                avatar: d.pict_url
+                image: d.pict_url
             }
             setProfile(biodata)
-    }))
+            setNewProfile(biodata)
+        }))
             .catch(err => console.log(err))
     }, [userId])
 
-
-
     const changeValue = (event) => {
         const { name, value } = event.target
-        setProfile(prev => ({
+        setNewProfile(prev => ({
             ...prev,
             [name]: value
         }))
     }
 
-    const editBiodata = async () => {
-        try {
-            const url = `${process.env.REACT_APP_BACKENDAPI}/users`;
-            const result = await axios.patch(url, profile, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Access-Control-Allow-Origin': '*',
-                }
-            })
-            result.data?.map(data => console.log(data))
-        } catch (error) {
-            console.log(error);
-        }
+    const imageHandler = (e) => {
+        setImage(e.target.files[0])
     }
 
-    console.log(msg);
+
+    const editBiodata = () => {
+        const url = `${process.env.REACT_APP_BACKENDAPI}/users/${userId}`
+        const formData = new FormData();
+        formData.append('image', image)
+        axios.patch(url, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Access-Control-Allow-Origin': '*'
+            },
+        })
+        const {displayName, firstName, lastName, birthDate, gender, address} = newProfile
+        const biodata = {
+            displayName,
+            firstName,
+            lastName,
+            birthDate,
+            gender,
+            address
+        }
+        axios.patch(url, biodata, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Access-Control-Allow-Origin': '*'
+            },
+        }).then(res => console.log(res)).catch(err => console.log(err))
+    }
 
     const logout = async () => {
         try {
             const url = `${process.env.REACT_APP_BACKENDAPI}/auth/logout`;
-            await axios.post(url, {userId}, {
+            await axios.post(url, { userId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Access-Control-Allow-Origin': '*',
                 }
             });
-            
+
         } catch (error) {
             console.log(error);
         } finally {
@@ -84,6 +102,7 @@ const Profile = () => {
             navigate("/login")
         }
     }
+    console.log(newProfile.birthDate);
 
     return (
         <React.Fragment>
@@ -93,15 +112,17 @@ const Profile = () => {
                 <section className="gap-5 xl:gap-[70px] items-stretch text-left flex flex-col justify-between xl:items-center m-5%">
                     <section className="justify-center xl:justify-between flex flex-wrap gap-5 items-center">
                         <div className="w-full xl:w-[310px] text-center h-[358px] bg-white flex flex-col justify-between py-12 px-3 rounded-[10px] relative overflow-hidden">
-                            <div>
+                            <div className="flex flex-col justify-center items-center ">
                                 <div className="relative w-fit mx-auto">
                                     <div className="w-[110px] h-[110px] rounded-full overflow-hidden relative mx-auto">
-                                        <img className="" src={profile.avatar} alt="avatar" />
+                                        <img className="" src={!profile.image ? defaultAvatar : profile.image} alt="avatar" />
                                     </div>
-                                    <div className="right-[0px] bottom-[0px] w-8 h-8 rounded-full bg-secondary flex justify-center items-center absolute cursor-pointer" >
-                                        <img src={pen} alt="pen" className="w-3 h-auto" />
+
+                                    <div className="right-[0px] bottom-[0px] w-8 h-8 rounded-full bg-secondary flex justify-center items-center absolute cursor-pointer" onClick={() => inputFile === false ? setInputFile(true) : setInputFile(false)}>
+                                        <img src={pen} alt="pen" className="w-3 h-auto " />
                                     </div>
                                 </div>
+                                <input type="file" name="image" className={`${inputFile === true ? 'visible' : 'invisible'}`} onChange={(e) => imageHandler(e)} />
                                 <h3 className="pt-8 pb-3 text-black text-2xl font-bold">{profile.displayName}</h3>
                                 <p className="text-txtPrimary text-sm font-normal ">{profile.email}</p>
                             </div>
@@ -110,7 +131,7 @@ const Profile = () => {
                         </div>
                         <div className="text-left w-full xl:w-[802px] p-[10%] xl:pt-4 xl:px-8 xl:pb-10 h-auto xl:h-[358px] flex justify-center flex-col bg-white rounded-[10px] relative overflow-hidden">
                             <h3 className="text-xl md:text-2xl font-poppins pb-5 font-bold">Contacts</h3>
-                            <div className="right-[10px] top-[10px] w-12 h-12 rounded-full bg-secondary flex justify-center items-center absolute cursor-pointer" onClick={() => contacsInput === true? setContacsInput(false) : setContacsInput(true)} >
+                            <div className="right-[10px] top-[10px] w-12 h-12 rounded-full bg-secondary flex justify-center items-center absolute cursor-pointer" onClick={() => contacsInput === true ? setContacsInput(false) : setContacsInput(true)} >
                                 <img className="w-[18px] h-auto" src={pen} alt="pen" />
                             </div>
                             <div className="w-full left-0 h-3 bg-secondary absolute bottom-0"></div>
@@ -118,18 +139,18 @@ const Profile = () => {
                                 <div className="w-full md:w-[90%] xl:w-[340px] flex flex-col justify-start gap-5">
                                     <div>
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">Email address :</p>
-                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your email" name="email" value={!profile.email ? '' : profile.email} onChange={(e) => changeValue(e)} disabled={contacsInput}/>
+                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your email" name="email" value={!newProfile.email ? '' : newProfile.email} onChange={(e) => changeValue(e)} disabled={contacsInput} />
                                     </div>
                                     <div>
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">Delivery address :</p>
-                                        <textarea className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" cols="30" rows="2" name="address" placeholder="Input your address" value={!profile.address ? '' : profile.address} onChange={(e) => changeValue(e)} disabled={contacsInput}></textarea>
+                                        <textarea className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" cols="30" rows="2" name="address" placeholder="Input your address" value={!newProfile.address ? '' : newProfile.address} onChange={(e) => changeValue(e)} disabled={contacsInput}></textarea>
 
                                     </div>
                                 </div>
                                 <div className="w-full md:w-[90%] xl:w-[340px] flex flex-col justify-start gap-12">
                                     <div>
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">Mobile number :</p>
-                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your phone number" name="phoneNumber" value={!profile.phoneNumber ? '' : profile.phoneNumber} onChange={(e) => changeValue(e)} disabled={contacsInput}/>
+                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your phone number" name="phoneNumber" value={!newProfile.phoneNumber ? '' : newProfile.phoneNumber} onChange={(e) => changeValue(e)} disabled={contacsInput} />
                                     </div>
                                 </div>
                             </section>
@@ -139,39 +160,39 @@ const Profile = () => {
                         <div className="w-full h-auto flex justify-center flex-col bg-white rounded-[10px] relative overflow-hidden p-[10%]">
                             <h3 className="text-xl md:text-2xl font-poppins pb-5 font-bold">Details</h3>
                             <div className="w-full left-0 h-3 bg-secondary absolute bottom-0"></div>
-                            <div className="right-[10px] top-[10px] w-12 h-12 rounded-full bg-secondary flex justify-center items-center absolute" onClick={() => detailsInput === true? setDetailsInput(false) : setDetailsInput(true)} >
+                            <div className="right-[10px] top-[10px] w-12 h-12 rounded-full bg-secondary flex justify-center items-center absolute" onClick={() => detailsInput === true ? setDetailsInput(false) : setDetailsInput(true)} >
                                 <img className="w-[18px] h-auto " src={pen} alt="pen" />
                             </div>
-                            <section className="flex-wrap flex gap-5 justify-between">
+                            <section className="flex gap-5 justify-between">
                                 <div className="w-full md:w-[90%] xl:w-[396px] flex flex-col xl:flex-row flex-wrap justify-start gap-5">
                                     <div >
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">Display name :</p>
-                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your display name" name="displayName" value={!profile.displayName ? '' : profile.displayName} onChange={(e) => changeValue(e)} disabled={detailsInput}/>
+                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your display name" name="displayName" value={!newProfile.displayName ? '' : newProfile.displayName} onChange={(e) => changeValue(e)} disabled={detailsInput} />
                                     </div>
                                     <div >
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">First name :</p>
-                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your first name" name="firstName" value={!profile.firstName ? '' : profile.firstName} onChange={(e) => changeValue(e)} disabled={detailsInput}/>
+                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-none" type="text" placeholder="Input your first name" name="firstName" value={!newProfile.firstName ? '' : newProfile.firstName} onChange={(e) => changeValue(e)} disabled={detailsInput} />
                                     </div>
                                     <div>
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">Last name :</p>
-                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-0" type="text" placeholder="Input your display name" name="lastName" value={!profile.lastName ? '' : profile.lastName} onChange={(e) => changeValue(e)} disabled={detailsInput}/>
+                                        <input className="border-b-[1px] border-solid border-b-black w-full text-xl font-normal text-black p-[10px] outline-0" type="text" placeholder="Input your display name" name="lastName" value={!newProfile.lastName ? '' : newProfile.lastName} onChange={(e) => changeValue(e)} disabled={detailsInput} />
                                     </div>
                                 </div>
                                 <div className="w-full xl:w-[217px] flex flex-col justify-start md:w-[90%] gap-6 xl:gap-5 ">
                                     <div>
                                         <p className="text-base md:text-xl font-poppins font-medium text-[#9f9f9f]">DD/MM/YYYY :</p>
-                                        <input className="border-solid border-b-[1px] border-b-black w-full text-xl font-normal text-black p-[10px] outline-0" type="date" name="birthdate" defaultValue={!profile.birthdate ? undefined : profile.birthdate} onChange={(e) =>  changeValue(e)} disabled={detailsInput}/>
+                                        <input className="border-solid border-b-[1px] border-b-black w-full text-xl font-normal text-black p-[10px] outline-0" type="date" name="birthDate" value={newProfile.birthDate} onChange={(e) => changeValue(e)} disabled={detailsInput} />
                                     </div>
                                     <label className=" h-8 text-base md:text-xl text-[#9f9f9f] cursor-pointer relative pl-12 font-poppins font-semibold">
                                         <div className="absolute left-0 flex items-center justify-center gap-5">
-                                            <input className="peer absolute cursor-pointer opacity-0 " type="radio" name="gender" value="male" onChange={(e) => changeValue(e)} disabled={detailsInput}/>
+                                            <input className="peer absolute cursor-pointer opacity-0 " type="radio" name="gender" value="male" onChange={(e) => changeValue(e)} disabled={detailsInput} checked={newProfile.gender === 'male'? true: false}/>
                                             <div className="peer-checked:bg-primary peer-checked:border-4 peer-checked:border-solid peer-checked:border-secondary h-[30px] w-[30px] bg-white border-solid border-4 border-[#9f9f9f] rounded-full"></div>
                                             <p className=" peer-checked:text-secondary text-base font-poppins font-bold text-[#9f9f9f]">Male</p>
                                         </div>
                                     </label>
                                     <label className=" h-8 text-base md:text-xl text-[#9f9f9f] cursor-pointer relative pl-12 font-poppins font-semibold">
                                         <div className="absolute left-0 flex items-center justify-center gap-5">
-                                            <input className="peer absolute cursor-pointer opacity-0 " type="radio" name="gender" value="female" onChange={(e) => changeValue(e)} disabled={detailsInput}/>
+                                            <input className="peer absolute cursor-pointer opacity-0 " type="radio" name="gender" value="female" onChange={(e) => changeValue(e)} disabled={detailsInput} checked={newProfile.gender === "female"? true: false}/>
                                             <div className="peer-checked:bg-primary peer-checked:border-4 peer-checked:border-solid peer-checked:border-secondary h-[30px] w-[30px] bg-white border-solid border-4 border-[#9f9f9f] rounded-full"></div>
                                             <p className="peer-checked:text-secondary text-base font-poppins font-bold text-[#9f9f9f]">Female</p>
                                         </div>

@@ -39,9 +39,7 @@ Click [here](https://client-coffee-shop-react.vercel.app/)
   npm install
 ```
 4. Create .env file
-```bash
-  setup your env variables
-```
+Setup your env variables with Environment Variable List below
 5. Start a local server
 ```bash
   npm start

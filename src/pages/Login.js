@@ -12,7 +12,9 @@ import { userInfoAction } from "../redux/slices/userInfo";
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp";
-import defaultAvatar from "../assets/default-avatar.jpg"
+import defaultAvatar from "../assets/default-avatar.jpg";
+
+
 
 
 class Login extends Component {

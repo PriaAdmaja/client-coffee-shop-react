@@ -57,6 +57,7 @@ To run this project, you will need to add the following environment variables to
 Here are some related projects
 
 [Backend Coffee-Shop](https://github.com/PriaAdmaja/backend-coffee_shop)
+[Mobile Coffee-Shop](https://github.com/PriaAdmaja/mobile-coffee-shop)
 
 
 ## Authors

@@ -1,19 +1,7 @@
 
 # Client Coffee-Shop
 
-A website to facilitate coffee shop and customers to get transaction. Using Coffee-Shops Rest API from [here](https://github.com/PriaAdmaja/backend-coffee_shop)
-
-
-## Demo
-
-Click [here](https://client-coffee-shop-react.vercel.app/)
-
-
-## Screenshots
-
-![Home Page](https://user-images.githubusercontent.com/109842306/240834687-cd588d34-2aee-4e0b-8644-ae40621feee8.PNG)
-
-![Product Page](https://user-images.githubusercontent.com/109842306/240835111-dc03162b-d0b4-48fd-87ba-6306e7175409.PNG)
+A website to facilitate coffee shop and customers to get transaction. 
 
 ## Tech Stack
 
@@ -21,7 +9,6 @@ Click [here](https://client-coffee-shop-react.vercel.app/)
 - [Redux](https://redux.js.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Axios](https://axios-http.com/)
-
 
 ## Installation
 
@@ -50,7 +37,20 @@ To run this project, you will need to add the following environment variables to
 
 `REACT_APP_BACKENDAPI` = Your Rest API
 
+## Demo
 
+Click [here](https://client-coffee-shop-react.vercel.app/)
+
+## Screenshots
+
+![Home Page](https://user-images.githubusercontent.com/109842306/243958676-8d79259e-56c1-48b1-831d-1bd46df41359.jpg)
+
+![Product Page](https://user-images.githubusercontent.com/109842306/243958647-6a1d8870-8301-4ae6-bf50-39642560b229.jpg)
+
+
+## Authors
+
+- [PriaAdmaja](https://github.com/PriaAdmaja)
 
 ## Related
 
@@ -58,12 +58,6 @@ Here are some related projects
 
 - [Backend Coffee-Shop](https://github.com/PriaAdmaja/backend-coffee_shop)
 - [Mobile Coffee-Shop](https://github.com/PriaAdmaja/mobile-coffee-shop)
-
-
-## Authors
-
-- [PriaAdmaja](https://github.com/PriaAdmaja)
-
 
 ## Feedback
 

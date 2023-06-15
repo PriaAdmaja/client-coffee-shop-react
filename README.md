@@ -1,7 +1,7 @@
 
 # Client Coffee-Shop
 
-A website to facilitate coffee shop and customers to get transaction. Available on any screen resolution. Can login with account user or admin.
+A website to facilitate coffee shop and customers to get transaction. Available on any screen resolution. You can login as customer or admin only with this web.
 
 ## Tech Stack
 

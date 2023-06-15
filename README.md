@@ -5,7 +5,7 @@ A website to facilitate coffee shop and customers to get transaction. Available 
 
 ## Tech Stack
 
-- [React JS](https://legacy.reactjs.org/)
+- [React JS](https://react.dev/)
 - [Redux](https://redux.js.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Axios](https://axios-http.com/)

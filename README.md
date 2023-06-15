@@ -1,7 +1,7 @@
 
 # Client Coffee-Shop
 
-A website to facilitate coffee shop and customers to get transaction. 
+A website to facilitate coffee shop and customers to get transaction. Available on any screen resolution. Can login with account user or admin.
 
 ## Tech Stack
 
@@ -34,8 +34,9 @@ A website to facilitate coffee shop and customers to get transaction.
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
-
-`REACT_APP_BACKENDAPI` = Your Rest API
+```bash
+REACT_APP_BACKENDAPI = Your Rest API
+```
 
 ## Demo
 
@@ -43,9 +44,15 @@ Click [here](https://client-coffee-shop-react.vercel.app/)
 
 ## Screenshots
 
-![Home Page](https://user-images.githubusercontent.com/109842306/243958676-8d79259e-56c1-48b1-831d-1bd46df41359.jpg)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/109842306/240834687-cd588d34-2aee-4e0b-8644-ae40621feee8.PNG" width="370" />
+  <img src="https://user-images.githubusercontent.com/109842306/240834952-39c459b6-2dcd-429b-a419-de503be962be.PNG" width="370" /> 
+</p>
 
-![Product Page](https://user-images.githubusercontent.com/109842306/243958647-6a1d8870-8301-4ae6-bf50-39642560b229.jpg)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/109842306/240835287-0f4c525c-9cd5-49cd-a25f-f0f9fc013ff4.PNG" width="370" />
+  <img src="https://user-images.githubusercontent.com/109842306/240835111-dc03162b-d0b4-48fd-87ba-6306e7175409.PNG" width="370" /> 
+</p>
 
 
 ## Authors

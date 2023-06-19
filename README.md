@@ -64,7 +64,7 @@ Click [here](https://client-coffee-shop-react.vercel.app/)
 Here are some related projects
 
 - [Backend Coffee-Shop](https://github.com/PriaAdmaja/backend-coffee_shop)
-- [Mobile Coffee-Shop](https://github.com/PriaAdmaja/mobile-coffee-shop)
+- [Mobile Coffee-Shop](https://github.com/PriaAdmaja/mobile-coffee)
 
 ## Feedback
 

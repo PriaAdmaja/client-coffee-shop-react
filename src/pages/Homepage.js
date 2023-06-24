@@ -96,7 +96,7 @@ const Homepage = () => {
                 <section className="p-[5%] bg-[#f0f0f0]">
                     <h2 className="text-3xl md:text-4xl text-txtSecondary font-medium text-center pb-4">Here is People's Favorite</h2>
                     <p className="text-txtPrimary text-center pb-4">Let’s choose and have a bit taste of poeple’s favorite. It might be yours too!</p>
-                    <section className="overflow-scroll lg:flex justify-center items-center">
+                    <section className="overflow-scroll xl:overflow-auto lg:flex justify-center items-center">
                         <section className="pt-20 inline-flex gap-4 lg:gap-20">
                             <section className="w-[280px] h-fit relative bg-white border-2 border-solid border-[#DDDDDD] rounded-[10px] mx-auto pt-[90px] px-[5%] pb-12">
                                 <section className="w-36 h-36 rounded-full overflow-hidden absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-2xl">
@@ -105,7 +105,7 @@ const Homepage = () => {
                                 <section className="flex flex-col justify-between items-center gap-10">
                                     <div className="">
                                         <h2 className="text-2xl font-medium text-txtSecondary pb-7">Pinky Promise</h2>
-                                        <div className="text-sm h-44 overflow-scroll">
+                                        <div className="text-sm h-44 ">
                                             <div className="flex items-start justify-start gap-3 pb-2">
                                                 <p className="text-[#2FAB73] font-extrabold">&#10003;</p>
                                                 <p>1 shot of coffee</p>
@@ -141,7 +141,7 @@ const Homepage = () => {
                                 <section className="flex flex-col justify-between items-center gap-10">
                                     <div className="">
                                         <h2 className="text-2xl font-medium text-txtSecondary pb-7">Chicken Wings</h2>
-                                        <div className="text-sm h-44 overflow-scroll">
+                                        <div className="text-sm h-44 ">
                                             <div className="flex items-start justify-start gap-3 pb-2">
                                                 <p className="text-[#2FAB73] font-extrabold">&#10003;</p>
                                                 <p>Wings</p>
@@ -181,7 +181,7 @@ const Homepage = () => {
                                 <section className="flex flex-col justify-between items-center gap-10">
                                     <div className="">
                                         <h2 className="text-2xl font-medium text-txtSecondary pb-7">Hazelnut Latte</h2>
-                                        <div className="text-sm h-44 overflow-scroll">
+                                        <div className="text-sm h-44 ">
                                             <div className="flex items-start justify-start gap-3 pb-2">
                                                 <p className="text-[#2FAB73] font-extrabold">&#10003;</p>
                                                 <p>Hazelnut syrup</p>

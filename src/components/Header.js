@@ -66,10 +66,10 @@ const Header = () => {
                     <input className="absolute left-1/4 top-1/4 scale-[2] opacity-0 cursor-pointer" type="checkbox" onChange={checkHandler} />
                 </div>
                 <ul className="hidden md:flex items-center justify-around list-none p-0 w-[400px] ">
-                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/'}>Home</Link></li>
-                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/products'}>Product</Link></li>
-                    <li className="w-1/4 hover:text-secondary hover:font-bold"><Link to={'/transaction'}>Your Cart</Link></li>
-                    <li className="w-1/4 hover:text-secondary hover:font-bold">History</li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold font-normal"><Link to={'/'}>Home</Link></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold font-normal"><Link to={'/products'}>Product</Link></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold font-normal"><Link to={'/transaction'}>Your Cart</Link></li>
+                    <li className="w-1/4 hover:text-secondary hover:font-bold font-normal"><Link to={'/history'}>History</Link></li>
                 </ul>
                 <NavControl />
             </nav>

@@ -39,6 +39,7 @@ const Products = () => {
         return () => { getData = false }
     }, [location])
 
+    console.log(location.search);
     const viewProduct = (id) => {
         navigate(`/product/${id}`)
     }
@@ -124,7 +125,7 @@ const Products = () => {
                     </div>
                 </section>
                 <section className="w-full md:w-[calc(100%_-_400px)] xl:w-[calc(100%_-_440px)] relative">
-                    <nav className="overflow-scroll px-[5%] py-[3%]">
+                    <nav className="overflow-scroll lg:overflow-auto px-[5%] py-[3%]">
                         <ul className="w-[450px] sm:w-full list-none flex items-center justify-center p-0 font-normal">
                             <li className={`${location.search === '' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('')}>Favorite Product</li>
                             <li className={`${location.search === '?category=coffee' && 'font-semibold text-secondary'} w-1/5 text-sm h-9 text-center cursor-pointer`} onClick={() => categoryController('coffee')}>Coffee</li>
@@ -159,9 +160,9 @@ const Products = () => {
                                     <div className="relative -top-10 shadow-xl w-[120px] h-[120px] rounded-full overflow-hidden mx-auto ">
                                         <img className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src={data.pict_url} alt="menu" />
                                     </div>
-                                    <div className="h-[45%] relative -top-8 flex flex-col justify-between">
+                                    <div className="h-[45%] relative -top-8 flex flex-col justify-between p-1">
                                         <h2 className="text-2xl font-semibold">{data.name}</h2>
-                                        <p className="text-secondary font-bold">IDR {data.price}</p>
+                                        <p className="text-secondary font-bold">IDR {Number(data.price).toLocaleString()}</p>
                                     </div>
                                 </div>
                             )

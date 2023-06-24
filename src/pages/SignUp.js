@@ -72,7 +72,7 @@ class SignUp extends Component {
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Phone Number :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="number" name="phoneNumber" placeholder="Enter your password" />
+                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="phoneNumber" placeholder="Enter your phone number" />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-4 lg:gap-[26px] mt-3 lg:mt-11">

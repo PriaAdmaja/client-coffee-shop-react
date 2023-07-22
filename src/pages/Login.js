@@ -13,9 +13,8 @@ import { userInfoAction } from "../redux/slices/userInfo";
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp";
 import defaultAvatar from "../assets/default-avatar.jpg";
-
-
-
+import eyeIcon from "../assets/eye.svg"
+import eyeCrossedIcon from "../assets/eye-crossed.svg"
 
 class Login extends Component {
     state = {
@@ -23,8 +22,9 @@ class Login extends Component {
             email: '',
             password: ''
         },
-        login : false,
-        isLoading: false
+        login: false,
+        isLoading: false,
+        seePassword: false
     }
 
     handleFormLogin = (event) => {
@@ -35,7 +35,12 @@ class Login extends Component {
         })
     }
 
-    login = async() => {
+    seePasswordHandler = () => {
+       this.state.seePassword === true ? this.setState({seePassword: false}) : this.setState({seePassword: true})
+       console.log(this.state.seePassword);
+    }
+
+    login = async () => {
         try {
             this.setState.isLoading = true;
             const body = this.state.formLogin;
@@ -62,12 +67,12 @@ class Login extends Component {
     }
 
     render() {
-        
+
         let token = this.props.userData.token;
-        
+
         return (
             <section className="font-rubik">
-                {token && (<Navigate to="/" replace={true}/>)}
+                {token && (<Navigate to="/" replace={true} />)}
                 <main className="flex justify-center w-full">
                     <section className="text-center flex-1 hidden md:block">
                         <img className="w-full h-auto" src={background} alt="background" />
@@ -85,7 +90,15 @@ class Login extends Component {
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary">Password :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormLogin} type="password" name="password" placeholder="Enter your password" id="input-password" />
+                                        <div className="flex w-full border-solid border-[1px] border-txtPrimary rounded-[20px] gap-1 px-5 lg:px-6 xl:px-[30px]">
+                                            <input className="w-full h-auto py-3 lg:py-5 xl:py-6  text-sm lg:text-xl rounded-[20px] outline-none" onChange={this.handleFormLogin} type={`${this.state.seePassword === true ? 'text' : 'password'}`} name="password" placeholder="Enter your password" id="input-password" />
+                                            <button type="button" onClick={this.seePasswordHandler} className={`${this.state.seePassword === true ? 'block' : 'hidden'}`}>
+                                                <img src={eyeIcon} className={``}  />
+                                            </button>
+                                            <button type="button" onClick={this.seePasswordHandler} className={`${this.state.seePassword === false ? 'block' : 'hidden'}`}>
+                                                <img src={eyeCrossedIcon} className={``} />
+                                            </button>
+                                        </div>
                                     </div>
                                     <p className="text-left text-secondary text-sm md:text-base lg:text-xl font-bold cursor-pointer" id="forgot">Forgot Password?</p>
                                 </div>

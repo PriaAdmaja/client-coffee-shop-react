@@ -37,7 +37,6 @@ class Login extends Component {
 
     seePasswordHandler = () => {
        this.state.seePassword === true ? this.setState({seePassword: false}) : this.setState({seePassword: true})
-       console.log(this.state.seePassword);
     }
 
     login = async () => {

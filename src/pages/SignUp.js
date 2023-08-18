@@ -10,6 +10,8 @@ import { register } from "../utils/apiconnection/auth"
 
 import iconGoogle from "../assets/google.png";
 import background from "../assets/images/foot-on-table.webp"
+import eyeIcon from "../assets/eye.svg"
+import eyeCrossedIcon from "../assets/eye-crossed.svg"
 
 
 class SignUp extends Component {
@@ -23,6 +25,8 @@ class SignUp extends Component {
                 phoneNumber: ''
             },
             msg: '',
+            seePassword: false,
+            isFocus: false
         };
         this.controller = new AbortController();
     }
@@ -34,6 +38,10 @@ class SignUp extends Component {
             formRegister: newFormRegister
         })
     }
+
+    seePasswordHandler = () => {
+        this.state.seePassword === true ? this.setState({seePassword: false}) : this.setState({seePassword: true})
+     }
 
     registerNewUser = async () => {
         try {
@@ -64,15 +72,23 @@ class SignUp extends Component {
                                 <div className="flex flex-col gap-4 lg:gap-6 xl:gap-8">
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Email Address :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="email" placeholder="Enter your email address" />
+                                        <input className="w-full h-12 lg:h-16 border-solid border-[1px] border-txtPrimary rounded-[20px] my-auto px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="email" placeholder="Enter your email address" />
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Password :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="password" name="password" placeholder="Enter your password" />
+                                        <div className={`flex w-full h-12 lg:h-16 border-solid rounded-[20px] gap-1 px-5 lg:px-6 xl:px-[30px] ${this.state.isFocus === true ? 'border-2 border-black' : 'border-[1px] border-txtPrimary'}`} >
+                                            <input className="w-full h-auto my-auto text-sm lg:text-xl outline-none" onChange={this.handleFormLogin} type={`${this.state.seePassword === true ? 'text' : 'password'}`} onFocus={() => this.setState({isFocus: true})} onBlur={() => this.setState({isFocus: false})} name="password" placeholder="Enter your password" id="input-password" />
+                                            <button type="button" onClick={this.seePasswordHandler} className={`${this.state.seePassword === true ? 'block' : 'hidden'}`}>
+                                                <img src={eyeIcon} className={``}  />
+                                            </button>
+                                            <button type="button" onClick={this.seePasswordHandler} className={`${this.state.seePassword === false ? 'block' : 'hidden'}`}>
+                                                <img src={eyeCrossedIcon} className={``} />
+                                            </button>
+                                        </div>
                                     </div>
                                     <div className="text-left ">
                                         <p className="text-sm lg:text-base xl:text-xl font-bold pb-1 md:pb-2 lg:pb3 text-txtSecondary">Phone Number :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="phoneNumber" placeholder="Enter your phone number" />
+                                        <input className="w-full h-12 lg:h-16 border-solid border-[1px] border-txtPrimary rounded-[20px] my-auto px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormRegister} type="text" name="phoneNumber" placeholder="Enter your phone number" />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-4 lg:gap-[26px] mt-3 lg:mt-11">

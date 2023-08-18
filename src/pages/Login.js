@@ -24,7 +24,8 @@ class Login extends Component {
         },
         login: false,
         isLoading: false,
-        seePassword: false
+        seePassword: false,
+        isFocus: false
     }
 
     handleFormLogin = (event) => {
@@ -61,14 +62,15 @@ class Login extends Component {
         } catch (error) {
             console.log(error);
         } finally {
-            this.setState.isLoading = false
+            this.setState({
+                isLoading: false
+            })
         }
     }
 
+    
     render() {
-
         let token = this.props.userData.token;
-
         return (
             <section className="font-rubik">
                 {token && (<Navigate to="/" replace={true} />)}
@@ -85,12 +87,12 @@ class Login extends Component {
                                 <div className="flex flex-col gap-4 lg:gap-8">
                                     <div className="text-left ">
                                         <p className="text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary">Email Address :</p>
-                                        <input className="w-full h-auto border-solid border-[1px] border-txtPrimary rounded-[20px] py-3 lg:py-5 xl:py-6 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormLogin} name="email" type="text" placeholder="Enter your email address" id="input-email" />
+                                        <input className="w-full  border-solid border-[1px] border-txtPrimary rounded-[20px] my-auto h-12 lg:h-16 px-5 lg:px-6 xl:px-[30px] text-sm lg:text-xl " onChange={this.handleFormLogin} name="email" type="text" placeholder="Enter your email address" id="input-email" />
                                     </div>
-                                    <div className="text-left ">
-                                        <p className="text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary">Password :</p>
-                                        <div className="flex w-full border-solid border-[1px] border-txtPrimary rounded-[20px] gap-1 px-5 lg:px-6 xl:px-[30px]">
-                                            <input className="w-full h-auto py-3 lg:py-5 xl:py-6  text-sm lg:text-xl rounded-[20px] outline-none" onChange={this.handleFormLogin} type={`${this.state.seePassword === true ? 'text' : 'password'}`} name="password" placeholder="Enter your password" id="input-password" />
+                                    <div className={`text-left `}>
+                                        <p className={`text-sm md:text-base lg:text-xl font-bold pb-1 sm:pb-3 text-txtSecondary `}>Password :</p>
+                                        <div className={`flex w-full h-12 lg:h-16 border-solid rounded-[20px] gap-1 px-5 lg:px-6 xl:px-[30px] ${this.state.isFocus === true ? 'border-2 border-black' : 'border-[1px] border-txtPrimary'}`} >
+                                            <input className="w-full h-auto my-auto text-sm lg:text-xl outline-none" onChange={this.handleFormLogin} type={`${this.state.seePassword === true ? 'text' : 'password'}`} onFocus={() => this.setState({isFocus: true})} onBlur={() => this.setState({isFocus: false})} name="password" placeholder="Enter your password" id="input-password" />
                                             <button type="button" onClick={this.seePasswordHandler} className={`${this.state.seePassword === true ? 'block' : 'hidden'}`}>
                                                 <img src={eyeIcon} className={``}  />
                                             </button>
